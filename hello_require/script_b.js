@@ -1,7 +1,10 @@
 /**
  * Created by bert on 3/19/16.
  */
-function run () {
-    console.log("I'm running from script_b");
-}
+(function ($, undefined) {
+    function run() {
+        console.log("I'm running from script_b");
+    }
+    $(run);
+})( jQuery );
 
