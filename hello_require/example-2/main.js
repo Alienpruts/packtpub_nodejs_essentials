@@ -1,4 +1,5 @@
 /**
  * Created by bert on 3/19/16.
  */
-util.logger.log("This is pretty cool");
+util = require('./util');
+//util.logger.log("This is pretty cool");
