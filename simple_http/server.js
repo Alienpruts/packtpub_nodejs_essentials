@@ -16,7 +16,7 @@ function requestHandler(request, response) {
         'Content-Type': 'text/plain',
     });
 
-    message = 'Visitor count: ' + count;
+    message = 'Visitor count: ' + count + ' with path : ' + request.url;
     console.log(message);
     response.end(message);
 }
