@@ -82,9 +82,44 @@ function deleteMessage(request, response) {
 
 }
 
+function readMessages(request, response) {
+    var id;
+    var message;
+    var messageList = [];
+    var messageString;
+
+    for (id in messages) {
+        if (!messages.hasOwnProperty(id)) {
+            continue;
+        }
+        message = messages[id];
+
+        // Handle Deleted Message.
+        if (typeof message !== 'string') {
+            continue;
+        }
+        messageList.push(message);
+    }
+
+    console.log('Reading messages', JSON.stringify(
+        messageList,
+        null,
+        '  '
+    ));
+
+    messageString = messageList.join('\n');
+
+    response.writeHead(200, {
+        'Content-Type': 'text/plain',
+    });
+
+    response.end(messageString);
+}
+
 router.post('/message', createMessage);
 router.get('/message/:id', readMessage);
 router.delete('/message/:id', deleteMessage);
+router.get('/message/all', readMessages);
 
 server.listen(3000, function () {
     console.log("listening on port 3000");
