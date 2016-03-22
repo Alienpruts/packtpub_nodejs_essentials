@@ -23,6 +23,13 @@ var server = Http.createServer(function (request, response) {
 
 });
 
+router.use(function (request, response, next) {
+    console.log('middleware executed');
+    // next NULL because there were no errors.
+    //if error, we could call next(error).
+    next(null);
+})
+
 function createMessage(request, response){
     var id = counter += 1;
     console.log('Creating message ', id);
