@@ -53,8 +53,20 @@ function readMessage(request, response) {
     response.end(message);
 }
 
+function deleteMessage(request, response) {
+    var id = request.params.id;
+    console.log('Deleting message', id);
+
+    messages[id] = undefined;
+
+    response.writeHead(204, {});
+    response.end('');
+
+}
+
 router.post('/message', createMessage);
 router.get('/message/:id', readMessage);
+router.delete('/message/:id', deleteMessage);
 
 server.listen(3000, function () {
     console.log("listening on port 3000");
