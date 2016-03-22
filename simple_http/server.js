@@ -3,9 +3,10 @@
  */
 var Http = require('http');
 var Router = require('router');
+var BodyParser = require('body-parser');
 
 var counter = 0;
-var mesages = {};
+var messages = {};
 
 var router = new Router();
 
@@ -23,20 +24,22 @@ var server = Http.createServer(function (request, response) {
 
 });
 
-router.use(function (request, response, next) {
-    console.log('middleware executed');
-    // next NULL because there were no errors.
-    //if error, we could call next(error).
-    next(null);
-})
+//read all requests as plain text.
+// method in book is deprecated
+// http://stackoverflow.com/questions/24330014/bodyparser-is-deprecated-express-4
+router.use(BodyParser.text());
 
 function createMessage(request, response){
     var id = counter += 1;
-    console.log('Creating message ', id);
+    message = request.body;
+    console.log('Creating message ', id, message);
+    messages[id] = message;
+
     response.writeHead(201, {
         'Content-Type': 'text/plain',
+        'Location': '/message/' + id,
     });
-    response.end('Message ' + id);
+    response.end(message);
 }
 
 router.post('/message', createMessage);
