@@ -11,12 +11,27 @@ server.listen(3000, function () {
 
 function requestHandler(request, response) {
     var message;
+    var message = 200;
+
     count += 1;
-    response.writeHead(201, {
+
+    switch (request.url) {
+        case '/count':
+            message = count.toString();
+            break;
+        case '/hello':
+            message = 'World';
+            break;
+        default:
+            status = 404;
+            message = 'Not found';
+            break;
+    }
+
+    response.writeHead(status, {
         'Content-Type': 'text/plain',
     });
 
-    message = 'Visitor count: ' + count + ' with path : ' + request.url;
     console.log(message);
     response.end(message);
 }
