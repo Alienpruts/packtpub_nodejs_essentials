@@ -11,7 +11,7 @@ server.listen(3000, function () {
 
 function requestHandler(request, response) {
     var message;
-    var message = 200;
+    var status = 200;
 
     count += 1;
 
@@ -32,6 +32,6 @@ function requestHandler(request, response) {
         'Content-Type': 'text/plain',
     });
 
-    console.log(message);
+    console.log(request.method, request.url, status, message);
     response.end(message);
 }
