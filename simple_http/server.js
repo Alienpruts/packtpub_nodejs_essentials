@@ -42,7 +42,19 @@ function createMessage(request, response){
     response.end(message);
 }
 
+function readMessage(request, response) {
+    var id = request.params.id;
+    var message = messages[id];
+    console.log('Reading message', id, message);
+
+    response.writeHead(200, {
+        'Content-Type': 'text/plain',
+    });
+    response.end(message);
+}
+
 router.post('/message', createMessage);
+router.get('/message/:id', readMessage);
 
 server.listen(3000, function () {
     console.log("listening on port 3000");
