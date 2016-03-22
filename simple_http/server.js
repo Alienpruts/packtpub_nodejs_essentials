@@ -45,6 +45,15 @@ function createMessage(request, response){
 function readMessage(request, response) {
     var id = request.params.id;
     var message = messages[id];
+
+    if (typeof message !== 'string') {
+        console.log('Message not found', id);
+
+        response.writeHead(404);
+        response.end('\n');
+        return;
+    }
+
     console.log('Reading message', id, message);
 
     response.writeHead(200, {
@@ -55,6 +64,15 @@ function readMessage(request, response) {
 
 function deleteMessage(request, response) {
     var id = request.params.id;
+    var message = messages[id];
+
+    if (typeof message !== 'string') {
+        console.log('Message not found', id);
+
+        response.writeHead(404);
+        response.end('\n');
+        return;
+    }
     console.log('Deleting message', id);
 
     messages[id] = undefined;
