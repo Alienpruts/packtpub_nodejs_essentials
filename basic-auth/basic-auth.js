@@ -50,3 +50,15 @@ Passport.use('local', localStrategy);
 app.use(BodyParser.urlencoded({extended: false}));
 app.use(BodyParser.json());
 app.use(Passport.initialize());
+
+app.post(
+    '/login',
+    Passport.authenticate('local', {session: false}),
+    function (request, response) {
+        response.send('User ID' + request.user.id);
+    }
+);
+
+app.listen(3000, function () {
+    console.log('Listening on port 3000');
+});
