@@ -9,6 +9,7 @@ logger = Bunyan.createLogger({
     level: Bunyan.TRACE,
 });
 
+/*
 logger.trace('Trace');
 logger.debug('Debug');
 logger.info('Info');
@@ -17,5 +18,12 @@ logger.error('Error');
 logger.fatal('Fatal');
 
 logger.fatal('We have a fatal, ABORT ABORT');
+*/
+
+try {
+    ref.go();
+} catch (error) {
+    logger.error(error);
+}
 
 process.exit(1);
