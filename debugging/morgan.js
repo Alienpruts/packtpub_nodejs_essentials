@@ -8,7 +8,7 @@ var Http = require('http');
 
 router = new Router();
 
-router.use(Morgan('tiny'));
+router.use(Morgan('combined'));
 
 Http.createServer(function (request, response) {
     router(request, response, function (error) {
