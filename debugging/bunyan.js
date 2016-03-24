@@ -8,4 +8,13 @@ logger = Bunyan.createLogger({
     name: 'example-8',
 });
 
-logger.info('Hello Logging');
+logger.trace('Trace');
+logger.debug('Debug');
+logger.info('Info');
+logger.warn('Warn');
+logger.error('Error');
+logger.fatal('Fatal');
+
+logger.fatal('We have a fatal, ABORT ABORT');
+
+process.exit(1);
