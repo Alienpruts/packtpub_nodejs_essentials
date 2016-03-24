@@ -6,6 +6,7 @@ var logger;
 
 logger = Bunyan.createLogger({
     name: 'example-8',
+    level: Bunyan.TRACE,
 });
 
 logger.trace('Trace');
