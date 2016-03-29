@@ -20,7 +20,7 @@ logger = Bunyan.createLogger({
     ],
 });
 
-logger.info(process.versions);
+//logger.info(process.versions);
 logger.info('Application started');
 
 /*
@@ -39,5 +39,26 @@ logger.fatal('We have a fatal, ABORT ABORT');
 } catch (error) {
     logger.error(error);
 }*/
+
+try {
+    a = function (callback) {
+        return function () {
+            callback();
+        };
+    };
+    b = function (callback) {
+        return function () {
+            callback();
+        };
+    };
+    c = function (callback) {
+        return function () {
+            throw new Error("I'm just messing with ya :) ");
+        };
+    };
+    a(b(c()))();
+} catch (error) {
+    logger.error(error);
+}
 
 //process.exit(1);
