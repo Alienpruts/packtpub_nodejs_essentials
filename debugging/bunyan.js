@@ -3,6 +3,7 @@
  */
 var Bunyan = require('bunyan');
 var logger;
+var Q = require('q');
 
 logger = Bunyan.createLogger({
     name: 'example-8',
@@ -40,7 +41,7 @@ logger.fatal('We have a fatal, ABORT ABORT');
     logger.error(error);
 }*/
 
-try {
+/*try {
     a = function (callback) {
         return function () {
             callback();
@@ -59,6 +60,19 @@ try {
     a(b(c()))();
 } catch (error) {
     logger.error(error);
-}
+}*/
+
+Q()
+    .then(function () {
+        // promise returned from another function.
+        return Q()
+            .then(function () {
+                throw new Error('Hello Errors');
+            });
+    })
+
+    .fail(function (error) {
+        logger.error(error);
+    });
 
 //process.exit(1);
