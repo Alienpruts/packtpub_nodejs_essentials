@@ -62,7 +62,7 @@ logger.fatal('We have a fatal, ABORT ABORT');
     logger.error(error);
 }*/
 
-Q()
+/*Q()
     .then(function () {
         // promise returned from another function.
         return Q()
@@ -73,6 +73,11 @@ Q()
 
     .fail(function (error) {
         logger.error(error);
-    });
+    });*/
+
+return Q()
+    .then(function resultFromOtherFunction() {
+        throw new Error('Hello Errors');
+});
 
 //process.exit(1);
