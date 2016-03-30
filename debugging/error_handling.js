@@ -5,6 +5,8 @@ var Bunyan = require('bunyan');
 var logger;
 var Q = require('q');
 var fs = require('fs');
+var Domain = require('domain');
+var domain;
 
 logger = Bunyan.createLogger({
     name: 'example-8',
@@ -42,6 +44,14 @@ process.on('uncaughtException', function errorProcessHandler(error) {
     process.exit(1);
 });
 
+// Using Domain for 'sandboxing' errors (and code)
+domain = Domain.create();
+
+domain.on('error', function (error) {
+    logger.error('Domain error', error.message);
+});
+
+
 // Testing calling code for error handling.
 console.log(parseJSONAndUse('it will not work'));
 
@@ -51,3 +61,10 @@ fs.readFile('idonotexist.txt', function (error, data) {
         throw error;
     }
 });
+
+// Run testing code inside domain for error handling.
+domain.run(function () {
+    logger.info('Is domain identical?', process.domain === domain);
+    throw new Error('Error happened');
+});
+
