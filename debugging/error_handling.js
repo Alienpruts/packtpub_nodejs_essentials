@@ -38,11 +38,11 @@ function parseJSONAndUse(input) {
 }
 
 // Error handler example.
-process.on('uncaughtException', function errorProcessHandler(error) {
+/*process.on('uncaughtException', function errorProcessHandler(error) {
     logger.fatal(error);
     logger.fatal('Fatal error encountered, exiting now');
     process.exit(1);
-});
+});*/
 
 // Using Domain for 'sandboxing' errors (and code)
 domain = Domain.create();
@@ -63,8 +63,22 @@ fs.readFile('idonotexist.txt', function (error, data) {
 });
 
 // Run testing code inside domain for error handling.
-domain.run(function () {
+/*domain.run(function () {
     logger.info('Is domain identical?', process.domain === domain);
     throw new Error('Error happened');
+});*/
+
+// Previous code still puts app in broken state because it executes synchronous.
+// If we create domain in asynnchronous callback, the app can continue.
+process.nextTick(function () {
+    domain.run(function () {
+        throw new Error('Error happened');
+    });
+    logger.info("I will never execute");
 });
 
+process.nextTick(function () {
+    logger.info("Next tick happened, yeah...");
+});
+
+logger.info("I happeded before anything else executed!");
