@@ -1,4 +1,10 @@
 {
-  "host": "localhost",
-  "port": 3000
+  "server" : {
+    "host": "localhost",
+    "port": 3000
+  },
+  "database" : {
+    "host": "db1.example.com",
+    "port": 271107
+  }
 }
