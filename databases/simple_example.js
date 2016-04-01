@@ -4,18 +4,20 @@
 
 var LevelUp = require('level');
 
-var db = new LevelUp('./example-db');
+var db = new LevelUp('./example-db', {
+    valueEncoding: 'json',
+});
 
-db.put('key', 'value', function (error) {
+db.put('jsonKey', { inner: 'value'}, function (error) {
     if (error) {
         return console.log('Error!', error);
     }
 
-    db.get('key', function (error, value) {
+    db.get('jsonKey', function (error, value) {
         if (error) {
             return console.log('Error!', error);
         }
 
-        console.log("key = ", value);
+        console.log("jsonKey = ", value);
     });
 });
