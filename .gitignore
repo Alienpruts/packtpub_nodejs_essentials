@@ -30,3 +30,6 @@ build/Release
 node_modules
 
 .idea
+
+# Database files should not be committed to VCS.
+/databases/example-db
