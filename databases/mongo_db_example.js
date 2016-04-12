@@ -25,5 +25,10 @@ MongoClient.connect(connection, function (error, db) {
 
     });
 
+    // Simple query for all collections in the MongoDB.
+    collection.find().toArray(function (error, result) {
+        console.log(result.length + " documents in our database");
+    });
 });
 
+// More examples in the book, but first a basic understanding of MongoDB should be acquired.
